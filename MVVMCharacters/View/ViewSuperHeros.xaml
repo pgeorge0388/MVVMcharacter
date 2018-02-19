@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="MVVMCharacters.ViewSuperHeros"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="White">
+    <UserControl.Resources>      
+        <DataTemplate x:Key="TheHero">
+            <Border BorderBrush="Black" BorderThickness="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBox Text="{Binding Model.Name}"/>
+                    <TextBox Text="{Binding Model.HeroName}" Grid.Row="1"/>
+                    <Button Content="{Binding Model.HeroName}" Command="{Binding RemovePowerHighlighted}" Grid.Row="2"/>
+                    <ListBox ItemsSource="{Binding Path=Model.MyPowers}" 
+                             SelectedItem="{Binding SelectedPowers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             SelectedValuePath="{Binding SelectedPowers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             SelectionChanged="ListBox_SelectionChanged"  Grid.Row="3">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RemovePowerHighlighted}" Content="{Binding PowerDesc, Mode=TwoWay}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--<ListBox ItemsSource="{Binding MyPowers}"  Grid.Row="3">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RemovePowerHighlighted}">
+                                    <Button.Content>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Text="{Binding Power}"/>
+                                            <TextBox Text="{Binding PowerDesc}"/>
+                                        </Grid>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ItemsControl Name="icHeros" ItemsSource="{Binding Models}" ItemTemplate="{StaticResource TheHero}"/>
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox Text="{Binding Model.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            --><!--<TextBox Text="{Binding HeroName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"/>--><!--
+            <Button Content="{Binding Model.HeroName}" Command="{Binding RemovePowerHighlighted}" Grid.Row="1"/>
+            <ListBox ItemsSource="{Binding ModelPowers}"  Grid.Row="3">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding RemovePowerHighlighted}" Content="{Binding PowerDesc}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>-->
+    </Grid>
+</UserControl>
